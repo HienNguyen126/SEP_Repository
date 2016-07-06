@@ -4,12 +4,14 @@
  * and open the template in the editor.
  */
 package timemanagementapplication;
+
 import java.util.Date;
 import javax.microedition.lcdui.*;
 /**
  *
  * @author THACH
  */
+
 public class frmRecord extends Form implements CommandListener{
     DateField dtfRecordDate = new DateField("Today", DateField.DATE);
     Date d;
@@ -45,3 +47,4 @@ public class frmRecord extends Form implements CommandListener{
         }
     }
 }
+

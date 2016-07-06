@@ -5,21 +5,26 @@
  */
 package timemanagementapplication;
 
-import javax.microedition.lcdui.Display;
-import javax.microedition.lcdui.TextField;
-import javax.microedition.midlet.*;
+import javax.microedition.lcdui.*;
+import javax.microedition.midlet.MIDlet;
+
 
 /**
- * @author Hien 
+ * @author Khoi Nguyen
  */
 public class RunApplication extends MIDlet {
 
-    //TextField txtTTTT;
-    Display display = Display.getDisplay(this);
+
+    private Display display;
+    public RunApplication(){
+        display = Display.getDisplay(this);
+    }
+
     public void startApp() {
-        frmRecord record = new frmRecord(display);
-        display.setCurrent(record);
-        
+
+        frmLogin Login = new frmLogin(display);
+        display.setCurrent(Login);
+
     }
     
     public void pauseApp() {
