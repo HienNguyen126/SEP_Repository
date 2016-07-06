@@ -5,6 +5,7 @@
  */
 package timemanagementapplication;
 
+import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.TextField;
 import javax.microedition.midlet.*;
 
@@ -13,8 +14,12 @@ import javax.microedition.midlet.*;
  */
 public class RunApplication extends MIDlet {
 
-    TextField txtTTTT;
+    //TextField txtTTTT;
+    Display display = Display.getDisplay(this);
     public void startApp() {
+        frmRecord record = new frmRecord(display);
+        display.setCurrent(record);
+        
     }
     
     public void pauseApp() {
