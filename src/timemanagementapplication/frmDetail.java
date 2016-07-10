@@ -12,7 +12,7 @@ import javax.microedition.lcdui.Command;
  * @author Thang Nguyen
  */
 public class frmDetail extends Form implements CommandListener{
-   private static TextField txtDetail = new TextField("Detail:", null, 100, TextField.INITIAL_CAPS_WORD);
+   private StringItem Detail = new StringItem("Status: ", "...");
     private Ticker hi = new Ticker("Mon 6/6 - Sat 11/6");
     Command cmdCancel = new Command("Cancel", Command.CANCEL, 1);
     Command cmdOk = new Command("Ok", Command.OK, 1);
@@ -22,7 +22,7 @@ public class frmDetail extends Form implements CommandListener{
     public frmDetail(Display display)
     {
         super("Detail");
-        append(txtDetail);
+        append(Detail);
         addCommand(cmdOk);
         addCommand(cmdCancel);
         setCommandListener(this);
