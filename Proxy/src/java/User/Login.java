@@ -60,7 +60,7 @@ public class Login extends HttpServlet {
                     "begin\n" +
                     "	if '" + password + "' like (select U.[Password] from [User] U where U.Email like '" + email + "')\n" +
                     "	begin\n" +
-                    "		select 'Ok' as Result\n" +
+                    "		select 'Ok|'+ CONVERT(varchar(10), U.UserID) as Result from [User] U where U.Email = '"+email+"'\n" +
                     "	end\n" +
                     "	else\n" +
                     "	begin\n" +
