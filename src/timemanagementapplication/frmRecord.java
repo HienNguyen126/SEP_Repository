@@ -19,10 +19,12 @@ public class frmRecord extends Form implements CommandListener{
     Command cmdEditRecord = new Command("Edit", Command.OK, 1);
     Command cmdDeleteRecord = new Command("Delete", Command.OK, 1);
     Command cmdBack = new Command("Back", Command.EXIT, 1);
+    public String uid;
     Display display;
-    public frmRecord(Display display)
+    public frmRecord(Display display , String uids)
     {
         super("Record");
+        this.uid = uids;
         d = new Date();
         dtfRecordDate.setDate(d);
         append(dtfRecordDate);
@@ -37,13 +39,20 @@ public class frmRecord extends Form implements CommandListener{
     {
         if(c== cmdAddRecord)
         {
-            frmAddRecord ar = new frmAddRecord(display);
+            frmAddRecord ar = new frmAddRecord(display , uid);
             display.setCurrent(ar);
         }
         else if(c==cmdEditRecord)
         {
-            frmEditRecord er = new frmEditRecord(display);
+            frmEditRecord er = new frmEditRecord(display , uid);
             display.setCurrent(er);
+        }
+        else if (c == cmdDeleteRecord){
+            frmDeleteRecord dr = new frmDeleteRecord(display , uid);
+            display.setCurrent(dr);
+        }else{
+            frmMain wc = new frmMain(display, uid);
+            display.setCurrent(wc);
         }
     }
 }

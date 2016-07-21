@@ -15,9 +15,11 @@ public class frmEditTag extends Form implements CommandListener{
     TextField txtDescriptionTag = new TextField("Description: ", "", 200, TextField.ANY);
     Command cmdCancel = new Command("Cancel", Command.CANCEL, 1);
     Command cmdOK = new Command("OK", Command.OK, 1);
+    public String uid;
     
-    public frmEditTag(Display display) {
+    public frmEditTag(Display display , String uids) {
         super("Edit a tag");
+        this.uid = uids;
         append(txtNameTag);
         append(txtDescriptionTag);
         addCommand(cmdCancel);
@@ -32,7 +34,7 @@ public class frmEditTag extends Form implements CommandListener{
         if(c == cmdOK){
             
         }else{
-            frmTag tag = new frmTag(display);
+            frmTag tag = new frmTag(display , uid);
             display.setCurrent(tag);
         }
     }

@@ -17,10 +17,12 @@ public class frmAddRecord extends Form implements CommandListener{
     DateField dtfEnd = new DateField("End", DateField.TIME);
     Command cmdCancel = new Command("Cancel", Command.CANCEL, 1);
     Command cmdOk = new Command("Ok", Command.OK, 1);
+    public String uid;
     Display display;
-    public frmAddRecord(Display display)
+    public frmAddRecord(Display display , String uids)
     {
         super("Add new record");
+        this.uid = uids;
         append(txtTag);
         append(dtfDate);
         append(dtfStart);
@@ -39,7 +41,7 @@ public class frmAddRecord extends Form implements CommandListener{
         }
         else if(c==cmdCancel)
         {
-            frmRecord record= new frmRecord(display);
+            frmRecord record= new frmRecord(display , uid);
             display.setCurrent(record);
         }
     }

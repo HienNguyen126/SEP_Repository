@@ -5,7 +5,9 @@
  */
 package timemanagementapplication;
 
+import java.io.IOException;
 import javax.microedition.lcdui.*;
+
 
 /**
  *
@@ -18,9 +20,12 @@ public class frmMain extends Form implements CommandListener, ItemCommandListene
     private static Command cmdReport = new Command ("", Command.ITEM, 1);
     private Display display;
     private StringItem item;
+    private Image Image;
+    public String uid;
 
-    public frmMain(Display display) {
+    public frmMain(Display display, String usid) {
         super("Main");
+        uid = usid;
         item = new StringItem ("", "Record", Item.BUTTON);
         item.setDefaultCommand (cmdRecord);
         item.setItemCommandListener (this);
@@ -41,13 +46,13 @@ public class frmMain extends Form implements CommandListener, ItemCommandListene
     public void commandAction(Command c, Item item) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         if(c == cmdTag){
-            frmTag Tag = new frmTag(display);
+            frmTag Tag = new frmTag(display, uid);
             display.setCurrent(Tag);
         }else if (c == cmdRecord) {
-            frmRecord Record = new frmRecord(display);
+            frmRecord Record = new frmRecord(display , uid);
             display.setCurrent(Record);
         }else{
-            frmReport Report = new frmReport(display);
+            frmReport Report = new frmReport(display, uid);
             display.setCurrent(Report);
         }
     }

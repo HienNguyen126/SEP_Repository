@@ -13,10 +13,12 @@ import javax.microedition.lcdui.*;
 public class frmDeleteRecord extends Form implements CommandListener{
     Command cmdCancel = new Command("Cancel", Command.CANCEL, 1);
     Command cmdOk = new Command("Ok", Command.OK, 1);
+    public String uid;
     Display display;
-    public frmDeleteRecord(Display display)
+    public frmDeleteRecord(Display display , String uids)
     {
         super("Delete record");
+        this.uid = uids;
         append("Do you want to delete this record? ");//+record name
         addCommand(cmdOk);
         addCommand(cmdCancel);
@@ -31,7 +33,7 @@ public class frmDeleteRecord extends Form implements CommandListener{
         }
         else if(c== cmdCancel)
         {
-            frmRecord record = new frmRecord(display);
+            frmRecord record = new frmRecord(display , uid);
             display.setCurrent(record);
         }
     }

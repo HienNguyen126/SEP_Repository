@@ -24,10 +24,12 @@ public class frmReport extends Form implements CommandListener{
         private Ticker hi = new Ticker("Mon 6/6 - Sat 11/6");
         Command cmdDetail = new Command("Detail", Command.OK, 1);
         Command cmdCancel = new Command("Cancel", Command.CANCEL, 1);
+        public String uid;
        
-    public frmReport(Display display)   
+    public frmReport(Display display, String uids)   
     {
           super("Report");
+          this.uid = uids;
           gauge = new Gauge("Entertainment", false, 100, 50);
           gauge1 = new Gauge("Study", false, 100, 33);
           gauge2 = new Gauge("Housework", false, 100, 21);
@@ -49,12 +51,12 @@ public class frmReport extends Form implements CommandListener{
     public void commandAction(Command c, Displayable d) {
        if(c== cmdDetail)
         {
-            frmDetail dt = new frmDetail(display);
+            frmDetail dt = new frmDetail(display , uid);
             display.setCurrent(dt);
         }
        else if (c == cmdCancel)
                {
-                   frmMain ma = new frmMain(display);
+                   frmMain ma = new frmMain(display, uid);
                    display.setCurrent(ma);
                }
         }

@@ -13,9 +13,11 @@ import javax.microedition.lcdui.*;
 public class frmDeleteTag extends Form implements CommandListener{
     Command cmdCancel = new Command("Cancel", Command.CANCEL, 1);
     Command cmdOK = new Command("OK", Command.OK, 1);
+    public String uid;
     
-    public frmDeleteTag(Display display) {
+    public frmDeleteTag(Display display, String uids) {
         super("Delete a tag");
+        this.uid = uids;
         append("Do you want to delete tag?");
         addCommand(cmdCancel);
         addCommand(cmdOK);
@@ -28,7 +30,7 @@ public class frmDeleteTag extends Form implements CommandListener{
         if (c == cmdOK){
             
         }else{
-            frmTag tag = new frmTag(display);
+            frmTag tag = new frmTag(display , uid);
             display.setCurrent(tag);
         }
     }

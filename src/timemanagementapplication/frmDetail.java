@@ -16,12 +16,14 @@ public class frmDetail extends Form implements CommandListener{
     private Ticker hi = new Ticker("Mon 6/6 - Sat 11/6");
     Command cmdCancel = new Command("Cancel", Command.CANCEL, 1);
     Command cmdOk = new Command("Ok", Command.OK, 1);
+    public String uid;
     
     Display display;
     TextBox box;
-    public frmDetail(Display display)
+    public frmDetail(Display display , String uids)
     {
         super("Detail");
+        this.uid = uids;
         append(Detail);
         addCommand(cmdOk);
         addCommand(cmdCancel);
@@ -33,12 +35,12 @@ public class frmDetail extends Form implements CommandListener{
     {
         if(c==cmdOk)
         {
-            frmReport rp = new frmReport(display);
+            frmReport rp = new frmReport(display , uid);
             display.setCurrent(rp);
         }
         else if(c==cmdCancel)
         {
-           frmReport rp = new frmReport(display);
+           frmReport rp = new frmReport(display , uid);
             display.setCurrent(rp);
         }
       
