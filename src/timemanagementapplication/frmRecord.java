@@ -22,6 +22,7 @@ public class frmRecord extends Form implements CommandListener, ItemStateListene
     Command cmdEditRecord = new Command("Edit", Command.OK, 1);
     Command cmdDeleteRecord = new Command("Delete", Command.OK, 1);
     Command cmdBack = new Command("Back", Command.EXIT, 1);
+    ChoiceGroup radioButtons = new ChoiceGroup(null, Choice.EXCLUSIVE);
     public String uid;
     Display display;
     Boolean check;
@@ -34,7 +35,7 @@ public class frmRecord extends Form implements CommandListener, ItemStateListene
         d = new Date();
         dtfRecordDate.setDate(d);
         append(dtfRecordDate);
-        
+        append(radioButtons);
         addCommand(cmdAddRecord);
         addCommand(cmdEditRecord);
         addCommand(cmdDeleteRecord);
@@ -59,33 +60,52 @@ public class frmRecord extends Form implements CommandListener, ItemStateListene
         public void itemStateChanged(Item item)              
   {
       String [] tmp = createList(dtfRecordDate);
+      radioButtons.deleteAll();
     if (item == dtfRecordDate)
     {
         for(int i=0; i<tmp.length; i++)
         {
-            append(tmp[i+1].toString()+"\t\t" + "      ");
+            //append(tmp[i+1].toString()+"\t\t" + "      ");
+            String name = tmp[i+1].toString()+"\t\t" + "      ";
             String [] time1 = Split(tmp[i+2].toString(), ":");
             String [] time2 = Split(tmp[i+3].toString(), ":");
             //hour
             int iTime1 = Integer.parseInt(time1[0].toString());
-            int itime2 = Integer.parseInt(time2[0].toString());
+            int iTime2 = Integer.parseInt(time2[0].toString());
             //min
             int iTime3 = Integer.parseInt(time1[1].toString());
-            int itime4 = Integer.parseInt(time2[1].toString());
+            int iTime4 = Integer.parseInt(time2[1].toString());
             //
-            int sum1= iTime1+ itime2;
-            int sum2= iTime3 + itime4;
+            int iTmp1  = (iTime1*60) + iTime3;
+            int iTmp2 = (iTime2*60) + iTime4;
             //
-            
+            int min = iTmp2 - iTmp1;
             //
-            append(iTime1+":"+ iTime3);
-            append(itime2+":"+ itime4);
+            int sumhour = min / 60;
+            int summin  = min % 60;
+            String hour ="";
+            String minute = "";
+            //
+            if(sumhour<10)
+            {
+                hour = "0"+sumhour;
+            }
+            else
+            {
+                hour = ""+sumhour;
+            }
+            if(summin<10)
+            {
+                minute = "0"+summin;
+            }
+            else
+            {
+                minute = ""+summin;
+            }
+            //append(hour + ":"+minute);
+            String time = hour + ":"+minute;
             i=i+3;
-        
-        }
-        for(int j =0;j<tmp.length;j++)
-        {
-             
+            radioButtons.append(name+time, null);
         }
     }
   }
@@ -95,7 +115,7 @@ public class frmRecord extends Form implements CommandListener, ItemStateListene
             s.valueOf(ParseDate(df));
             uid.valueOf("1");
             s=br.ListRecord(uid, s, s);
-            String[] tmp = Split(new String(s), "|");
+            String[] tmp = Split(new String(s.trim()), "|");
             return tmp;
         }
     public static String[] Split(String splitStr, String delimiter) {
