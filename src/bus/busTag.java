@@ -16,33 +16,38 @@ import javax.microedition.io.HttpConnection;
  * @author Thuong
  */
 public class busTag {
-    public String ListTag(String userid){
+   public String ListTag(String userid){
         String re = "";
-        String url = "http://172.20.10.12:8080/Proxy/Tag?userid="+userid;
+        String url = "http://192.168.124.1:8080/Proxy/Tag?userid="+userid;
         re = Connect(url);
         return re;
     }
     
     public String AddTag(String userid, String name, String description){
         String re = "";
-        String url = "http://172.20.10.12:8080/Proxy/AddTag?userid="+ userid +"&name="+ name +"&description="+description;
+        String url = "http://192.168.124.1:8080/Proxy/AddTag?userid="+ userid +"&name="+ name +"&description="+description;
         re = Connect(url);
         return re;
     }
     
     public String EditTag(String tagid, String name, String description){
         String re = "";
-        
+        String url = "http://192.168.124.1:8080/Proxy/EditTag?tagid="+tagid+"&name="+name+"&description="+description;
+        re = Connect(url);
         return re;
     }
     
     public String DeleteTag(String tagid){
         String re = "";
+        String url = "http://192.168.124.1:8080/Proxy/DeleteTag?tagid="+tagid;
+        re = Connect(url);
         return re;
     }
     
     public String ListOne(String tagid){
         String re ="";
+        String url = "http://192.168.124.1:8080/Proxy/OneTag?tagid="+tagid;
+        re = Connect(url);
         return re;
     }
 
@@ -76,4 +81,3 @@ public class busTag {
             return re;
     }
 }
-

@@ -17,21 +17,21 @@ public class busUser {
     
     public String Login(String Email, String Password){
         String re = "";
-        String url = "http://172.20.10.12:8080/Proxy/Login?email="+ Email +"&password="+ Password ;
+        String url = "http://192.168.124.1:8080/Proxy/Login?email="+ Email +"&password="+ Password ;
         re = Connect(url);
         return re;
     }
     
     public String Register(String Email, String Password){
         String re = "";
-        String url = "http://172.20.10.12:8080/Proxy/Register?email="+ Email +"&password="+ Password ;
+        String url = "http://192.168.124.1:8080/Proxy/Register?email="+ Email +"&password="+ Password ;
         re = Connect(url);
         return re;
     }
     
     public String SendEmail(String Email, String Password){
         String re = "";
-        String url = "http://172.20.10.12:8080/Proxy/SendEmail?email="+ Email +"&password="+ Password ;
+        String url = "http://192.168.124.1:8080/Proxy/SendEmail?email="+ Email +"&password="+ Password ;
         re = Connect(url);
         return re;
     }

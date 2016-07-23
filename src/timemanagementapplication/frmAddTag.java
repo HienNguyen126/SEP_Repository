@@ -5,6 +5,7 @@
  */
 package timemanagementapplication;
 
+import bus.busTag;
 import javax.microedition.lcdui.*;
 
 /**
@@ -33,7 +34,21 @@ public class frmAddTag extends Form implements CommandListener{
     public void commandAction(Command c, Displayable d) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         if(c == cmdOK){
-            
+            String name = txtNameTag.getString();
+            name.valueOf(txtNameTag.getString());
+            String rename = frmTag.Decode(name);
+            String decs =txtDescriptionTag.getString();
+            decs.valueOf(txtDescriptionTag.getString());
+            String redecs = frmTag.Decode(decs);
+            busTag bustag = new busTag();
+            String re = bustag.AddTag(uid, rename, redecs);
+            if(re.startsWith("Ok")){
+                frmTag tag = new frmTag(display, uid);
+                display.setCurrent(tag);
+            }else{
+                Alert addTag = new Alert ("Add Tag Fail!", re , null , AlertType.WARNING);
+                display.setCurrent(addTag, this);
+            }
         }else{
             frmTag tag = new frmTag(display , uid);
             display.setCurrent(tag);
