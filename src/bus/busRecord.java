@@ -18,14 +18,14 @@ public class busRecord {
     public String ListRecord(String uid,String dtfrom,String dtto)
     {
         String re="";
-        String url="http://localhost:8080/Proxy/Record?userid="+uid+"&datefrom="+dtfrom+"&dateto="+dtto;
+        String url="http://192.168.124.1:8080/Proxy/Record?userid="+uid+"&datefrom="+dtfrom+"&dateto="+dtto;
         re=Connect(url);
         return re;
     }
     public String GetRecordId()
     {
         String re="";
-        String url="http://localhost:8080/Proxy/Login?email=hiennguyen87@vanlanguni.vn&password=hiennguyen";
+        String url="http://192.168.124.1:8080/Proxy/Login?email=hiennguyen87@vanlanguni.vn&password=hiennguyen";
         re=Connect(url);
         return re;
     }
