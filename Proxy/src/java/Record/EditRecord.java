@@ -54,24 +54,26 @@ public class EditRecord extends HttpServlet {
         String start = request.getParameter("start");
         String end = request.getParameter("end");
         String description = request.getParameter("description");
-        String redescription = description.replace('+', ' '); 
+        String redescription = description.replace('+', ' ');
         String sql;
-        sql = "update Record\n" +
-                    "set TagID = "+tagid+",\n" +
-                    "[Date] = '"+date+"',\n" +
-                    "StartTime ='"+start+"',\n" +
-                    "EndTime = '"+end+"',\n" +
-                    "[Description] = '"+redescription+"'\n" +
-                    "where RecordID =" + recordid;
+        sql = "update Record\n"
+                + "set TagID = " + tagid + ",\n"
+                + "[Date] = '" + date + "',\n"
+                + "StartTime ='" + start + "',\n"
+                + "EndTime = '" + end + "',\n"
+                + "[Description] = '" + redescription + "'\n"
+                + "where RecordID =" + recordid;
         User.Register reg = new Register();
-        String result = reg.Setdata(sql);  
+        String result = reg.Setdata(sql);
         response(response, result);
     }
+
     private void response(HttpServletResponse resp, String msg)
-			throws IOException {
-	PrintWriter out = resp.getWriter();
-	out.println(msg);
-	}
+            throws IOException {
+        PrintWriter out = resp.getWriter();
+        out.println(msg);
+    }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *

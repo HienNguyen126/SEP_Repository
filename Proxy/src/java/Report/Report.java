@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package User;
+package Report;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Hien
  */
-public class Login extends HttpServlet {
+public class Report extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -53,32 +53,29 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String userid = request.getParameter("userid");
+        String datefrom = request.getParameter("datefrom");
+        String dateto = request.getParameter("dateto");
         String sql;
-        sql = "if '" + email + "' in (select U.Email from [User] U)\n"
-                + "begin\n"
-                + "	if '" + password + "' like (select U.[Password] from [User] U where U.Email like '" + email + "')\n"
-                + "	begin\n"
-                + "		select 'Ok|'+ CONVERT(varchar(10), U.UserID) as Result from [User] U where U.Email = '" + email + "'\n"
-                + "	end\n"
-                + "	else\n"
-                + "	begin\n"
-                + "		select 'Wrong password' as Result\n"
-                + "	end\n"
-                + "end\n"
-                + "else\n"
-                + "begin\n"
-                + "	select 'Account is not exist'as Result\n"
-                + "end";
+        sql = "select A.Name, sum(Total)as Total\n"
+                + "from\n"
+                + "	(select T.Name, sum(DateDiff(ss, R.StartTime, R.EndTime )/60) as Total\n"
+                + "	from Record R, Tag T\n"
+                + "	where\n"
+                + "	R.TagID = T.TagID\n"
+                + "	and\n	R.[Status]= 1\n"
+                + "	and"
+                + "	T.UserID = " + userid + "\n"
+                + "	and\n"
+                + "	R.[Date]>='" + datefrom + "'\n"
+                + "	and\n"
+                + "	R.[Date]<='" + dateto + "'\n"
+                + "	group by\n"
+                + "	T.Name, R.StartTime, R.EndTime) as A\n"
+                + "group by \n"
+                + "A.Name";
         String result = Getdata(sql);
         response(response, result);
-    }
-
-    private void response(HttpServletResponse resp, String msg)
-            throws IOException {
-        PrintWriter out = resp.getWriter();
-        out.println(msg);
     }
 
     /**
@@ -92,7 +89,13 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+    }
+
+    private void response(HttpServletResponse resp, String msg)
+            throws IOException {
+        PrintWriter out = resp.getWriter();
+        out.println(msg);
     }
 
     /**
@@ -117,8 +120,9 @@ public class Login extends HttpServlet {
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 //Retrieve by column name
-                String result = rs.getString("Result");
-                re = re + result + "\n";
+                String name = rs.getString("Name");
+                String total = rs.getString("Total");
+                re = re + name + "|" + total + "\n";
             }
         } catch (SQLException se) {
             //Handle errors for JDBC

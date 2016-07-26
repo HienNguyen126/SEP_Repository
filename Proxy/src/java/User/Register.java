@@ -55,26 +55,27 @@ public class Register extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String sql;
-        sql = "if '"+email+"' in (select U.Email from [User] U)\n" +
-                    "begin\n" +
-                    "	update [User]\n" +
-                    "	set [Password] = '"+password+"'\n" +
-                    "	where Email like '"+email+"'\n" +
-                    "end\n" +
-                    "else\n" +
-                    "begin\n" +
-                    "	insert into [User]\n" +
-                    "	values ('"+email+"', '"+password+"')\n" +
-                    "end";
+        sql = "if '" + email + "' in (select U.Email from [User] U)\n"
+                + "begin\n"
+                + "	update [User]\n"
+                + "	set [Password] = '" + password + "'\n"
+                + "	where Email like '" + email + "'\n"
+                + "end\n"
+                + "else\n"
+                + "begin\n"
+                + "	insert into [User]\n"
+                + "	values ('" + email + "', '" + password + "')\n"
+                + "end";
         String result = Setdata(sql);
         response(response, result);
     }
 
     private void response(HttpServletResponse resp, String msg)
-			throws IOException {
-	PrintWriter out = resp.getWriter();
-	out.println(msg);
-	}
+            throws IOException {
+        PrintWriter out = resp.getWriter();
+        out.println(msg);
+    }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -99,37 +100,37 @@ public class Register extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public String Setdata(String sql){
+    public String Setdata(String sql) {
         String re = "";
         Connection conn = null;
         Statement stmt = null;
-        ResultSet rs ;
-        try
-        {
+        ResultSet rs;
+        try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conn = DriverManager.getConnection("jdbc:sqlserver://cmu.vanlanguni.edu.vn:1433;databaseName=CST23", "CST23", "nisliswodu");
             stmt = conn.createStatement();
             stmt.executeUpdate(sql);
             re = "Ok";
-        }catch(SQLException se){
+        } catch (SQLException se) {
             //Handle errors for JDBC
             re = se.toString();
-        }catch(Exception e){
+        } catch (Exception e) {
             //Handle errors for Class.forName
             re = e.toString();
-        }
-        finally{
+        } finally {
             //finally block used to close resources
-            try{
-               if(stmt!=null)
-                conn.close();
-            }catch(SQLException se){
-               
+            try {
+                if (stmt != null) {
+                    conn.close();
+                }
+            } catch (SQLException se) {
+
             }
-            try{
-               if(conn!=null)
-                conn.close();
-            }catch(SQLException se){
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException se) {
                 re = se.toString();
             }
         }

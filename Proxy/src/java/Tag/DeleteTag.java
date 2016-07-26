@@ -50,13 +50,13 @@ public class DeleteTag extends HttpServlet {
             throws ServletException, IOException {
         String tagid = request.getParameter("tagid");
         String sql;
-        sql = "update Tag\n" +
-                "set [Status] = 0\n" +
-                "where TagID =" + tagid;
+        sql = "update Tag\n"
+                + "set [Status] = 0\n"
+                + "where TagID =" + tagid;
         String sql2;
-        sql2 = "update Record\n" +
-                "set [Status] = 0\n" +
-                "where TagID =" + tagid;
+        sql2 = "update Record\n"
+                + "set [Status] = 0\n"
+                + "where TagID =" + tagid;
         User.Register reg = new Register();
         String result = reg.Setdata(sql);
         String result2 = reg.Setdata(sql2);
@@ -64,10 +64,11 @@ public class DeleteTag extends HttpServlet {
     }
 
     private void response(HttpServletResponse resp, String msg)
-			throws IOException {
-	PrintWriter out = resp.getWriter();
-	out.println(msg);
-	}
+            throws IOException {
+        PrintWriter out = resp.getWriter();
+        out.println(msg);
+    }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *

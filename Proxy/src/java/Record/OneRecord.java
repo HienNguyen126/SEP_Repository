@@ -49,18 +49,20 @@ public class OneRecord extends HttpServlet {
             throws ServletException, IOException {
         String recordid = request.getParameter("recordid");
         String sql;
-        sql = "select R.RecordID , T.Name ,  R.StartTime, R.EndTime, R.[Description] from Record R, Tag T\n" +
-                "where R.TagID = T.TagID and\n" +
-                "R.RecordID =" + recordid;
+        sql = "select R.RecordID , T.Name ,  R.StartTime, R.EndTime, R.[Description] from Record R, Tag T\n"
+                + "where R.TagID = T.TagID and\n"
+                + "R.RecordID =" + recordid;
         Record record = new Record();
         String result = record.Getdata(sql);
         response(response, result);
     }
+
     private void response(HttpServletResponse resp, String msg)
-			throws IOException {
-	PrintWriter out = resp.getWriter();
-	out.println(msg);
-	}
+            throws IOException {
+        PrintWriter out = resp.getWriter();
+        out.println(msg);
+    }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *

@@ -38,7 +38,7 @@ public class Tag extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-        
+
         }
     }
 
@@ -56,19 +56,21 @@ public class Tag extends HttpServlet {
             throws ServletException, IOException {
         String userid = request.getParameter("userid");
         String sql;
-        sql = "select T.TagID , T.Name , T.[Description] from  Tag T, [User] U \n" +
-                    "where T.UserID = U.UserID\n" +
-                    "and T.[Status] = 1\n" +
-                    "and U.UserID ="+ userid;
+        sql = "select T.TagID , T.Name , T.[Description] from  Tag T, [User] U \n"
+                + "where T.UserID = U.UserID\n"
+                + "and T.[Status] = 1\n"
+                + "and U.UserID =" + userid;
         String result = Getdata(sql);
         response(response, result);
         //processRequest(request, response);
     }
+
     private void response(HttpServletResponse resp, String msg)
-			throws IOException {
-	PrintWriter out = resp.getWriter();
-	out.println(msg);
-	}
+            throws IOException {
+        PrintWriter out = resp.getWriter();
+        out.println(msg);
+    }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -93,43 +95,43 @@ public class Tag extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public String Getdata(String sql){
+    public String Getdata(String sql) {
         String re = "";
         Connection conn = null;
         Statement stmt = null;
-        ResultSet rs ;
-        try
-        {
+        ResultSet rs;
+        try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conn = DriverManager.getConnection("jdbc:sqlserver://cmu.vanlanguni.edu.vn:1433;databaseName=CST23", "CST23", "nisliswodu");
             stmt = conn.createStatement();
-            rs= stmt.executeQuery(sql);
-            while(rs.next()){
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
                 //Retrieve by column name
                 int id = rs.getInt("TagID");
                 String name = rs.getString("Name");
                 String description = rs.getString("Description");
-                re = re + id + "|" +name + "|" + description +"\n";
-           }
-        }catch(SQLException se){
+                re = re + id + "|" + name + "|" + description + "\n";
+            }
+        } catch (SQLException se) {
             //Handle errors for JDBC
             re = se.toString();
-        }catch(Exception e){
+        } catch (Exception e) {
             //Handle errors for Class.forName
             re = e.toString();
-        }
-        finally{
+        } finally {
             //finally block used to close resources
-            try{
-               if(stmt!=null)
-                conn.close();
-            }catch(SQLException se){
-               
+            try {
+                if (stmt != null) {
+                    conn.close();
+                }
+            } catch (SQLException se) {
+
             }
-            try{
-               if(conn!=null)
-                conn.close();
-            }catch(SQLException se){
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException se) {
                 re = se.toString();
             }
         }

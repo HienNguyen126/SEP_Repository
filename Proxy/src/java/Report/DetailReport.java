@@ -3,11 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tag;
+package Report;
 
-import User.Register;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Time;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Hien
  */
-public class EditTag extends HttpServlet {
+public class DetailReport extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,18 +54,24 @@ public class EditTag extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String tagid = request.getParameter("tagid");
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String rename = name.replace('+', ' ');
-        String redescription = description.replace('+', ' ');
+        String userid = request.getParameter("userid");
+        String datefrom = request.getParameter("datefrom");
+        String dateto = request.getParameter("dateto");
         String sql;
-        sql = "update Tag\n"
-                + "set Name = '" + rename + "',\n"
-                + "[Description] = '" + redescription + "'\n"
-                + "where TagID =" + tagid;
-        User.Register reg = new Register();
-        String result = reg.Setdata(sql);
+        sql = "select R.RecordID , R.[Date] ,T.Name ,  R.StartTime, R.EndTime from Record R, Tag T, [User] U\n"
+                + "where\n"
+                + "R.TagID = T.TagID\n"
+                + "and\n"
+                + "T.UserID = U.UserID\n"
+                + "and\n"
+                + "R.[Status] =1\n"
+                + "and\n"
+                + "U.UserID = " + userid + "\n"
+                + "and\n"
+                + "R.[Date] >= '" + datefrom + "'\n"
+                + "and\n"
+                + "R.[date] <= '" + dateto + "'";
+        String result = Getdata(sql);
         response(response, result);
     }
 
@@ -93,4 +105,48 @@ public class EditTag extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    public String Getdata(String sql) {
+        String re = "";
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs;
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            conn = DriverManager.getConnection("jdbc:sqlserver://cmu.vanlanguni.edu.vn:1433;databaseName=CST23", "CST23", "nisliswodu");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                //Retrieve by column name
+                int id = rs.getInt("RecordID");
+                Date date = rs.getDate("Date");
+                String name = rs.getString("Name");
+                Time start = rs.getTime("StartTime");
+                Time end = rs.getTime("EndTime");
+                re = re + id + "|" + name + "|" + date + "|" + start + "|" + end + "\n";
+            }
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            re = se.toString();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            re = e.toString();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null) {
+                    conn.close();
+                }
+            } catch (SQLException se) {
+
+            }
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException se) {
+                re = se.toString();
+            }
+        }
+        return re;
+    }
 }

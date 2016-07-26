@@ -49,17 +49,19 @@ public class OneTag extends HttpServlet {
             throws ServletException, IOException {
         String tagid = request.getParameter("tagid");
         String sql;
-        sql = "select T.TagID , T.Name , T.[Description] from  Tag T\n" +
-                    "where T.TagID =" + tagid;
+        sql = "select T.TagID , T.Name , T.[Description] from  Tag T\n"
+                + "where T.TagID =" + tagid;
         Tag tag = new Tag();
-        String result = tag.Getdata(sql);   
+        String result = tag.Getdata(sql);
         response(response, result);
     }
+
     private void response(HttpServletResponse resp, String msg)
-			throws IOException {
-	PrintWriter out = resp.getWriter();
-	out.println(msg);
-	}
+            throws IOException {
+        PrintWriter out = resp.getWriter();
+        out.println(msg);
+    }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *

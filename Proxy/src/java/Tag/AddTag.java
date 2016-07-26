@@ -52,20 +52,21 @@ public class AddTag extends HttpServlet {
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         String rename = name.replace('+', ' ');
-        String redescription = description.replace('+', ' ');    
+        String redescription = description.replace('+', ' ');
         String sql;
-        sql = "insert into Tag\n" +
-                "values ('"+rename+"', '"+redescription+"', 1, "+ userid +")";
+        sql = "insert into Tag\n"
+                + "values ('" + rename + "', '" + redescription + "', 1, " + userid + ")";
         User.Register reg = new Register();
-        String result = reg.Setdata(sql);  
+        String result = reg.Setdata(sql);
         response(response, result);
     }
 
     private void response(HttpServletResponse resp, String msg)
-			throws IOException {
-	PrintWriter out = resp.getWriter();
-	out.println(msg);
-	}
+            throws IOException {
+        PrintWriter out = resp.getWriter();
+        out.println(msg);
+    }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *

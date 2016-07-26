@@ -39,7 +39,7 @@ public class Record extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+
         }
     }
 
@@ -54,32 +54,34 @@ public class Record extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
         String userid = request.getParameter("userid");
         String datefrom = request.getParameter("datefrom");
         String dateto = request.getParameter("dateto");
         String sql;
-        sql = "select R.RecordID , T.Name ,  R.StartTime, R.EndTime, R.[Description] from Record R, Tag T, [User] U\n" +
-                "where\n" +
-                "R.TagID = T.TagID\n" +
-                "and\n" +
-                "T.UserID = U.UserID\n" +
-                "and\n" +
-                "R.[Status] =1\n" +
-                "and\n" +
-                "U.UserID = "+userid+"\n" +
-                "and\n" +
-                "R.[Date] >= '"+datefrom+"'\n" +
-                "and\n" +
-                "R.[date] <= '"+dateto+"'";
+        sql = "select R.RecordID , T.Name ,  R.StartTime, R.EndTime, R.[Description] from Record R, Tag T, [User] U\n"
+                + "where\n"
+                + "R.TagID = T.TagID\n"
+                + "and\n"
+                + "T.UserID = U.UserID\n"
+                + "and\n"
+                + "R.[Status] =1\n"
+                + "and\n"
+                + "U.UserID = " + userid + "\n"
+                + "and\n"
+                + "R.[Date] >= '" + datefrom + "'\n"
+                + "and\n"
+                + "R.[date] <= '" + dateto + "'";
         String result = Getdata(sql);
         response(response, result);
     }
+
     private void response(HttpServletResponse resp, String msg)
-			throws IOException {
-	PrintWriter out = resp.getWriter();
-	out.println(msg);
-	}
+            throws IOException {
+        PrintWriter out = resp.getWriter();
+        out.println(msg);
+    }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -103,46 +105,46 @@ public class Record extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-    public String Getdata(String sql){
+
+    public String Getdata(String sql) {
         String re = "";
         Connection conn = null;
         Statement stmt = null;
-        ResultSet rs ;
-        try
-        {
+        ResultSet rs;
+        try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conn = DriverManager.getConnection("jdbc:sqlserver://cmu.vanlanguni.edu.vn:1433;databaseName=CST23", "CST23", "nisliswodu");
             stmt = conn.createStatement();
-            rs= stmt.executeQuery(sql);
-            while(rs.next()){
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
                 //Retrieve by column name
                 int id = rs.getInt("RecordID");
                 String name = rs.getString("Name");
                 Time start = rs.getTime("StartTime");
                 Time end = rs.getTime("EndTime");
                 String description = rs.getString("Description");
-                re = re + id + "|" +name +"|" + start+ "|"+ end +"|"+ description +"\n";
-           }
-        }catch(SQLException se){
+                re = re + id + "|" + name + "|" + start + "|" + end + "|" + description + "\n";
+            }
+        } catch (SQLException se) {
             //Handle errors for JDBC
             re = se.toString();
-        }catch(Exception e){
+        } catch (Exception e) {
             //Handle errors for Class.forName
             re = e.toString();
-        }
-        finally{
+        } finally {
             //finally block used to close resources
-            try{
-               if(stmt!=null)
-                conn.close();
-            }catch(SQLException se){
-               
+            try {
+                if (stmt != null) {
+                    conn.close();
+                }
+            } catch (SQLException se) {
+
             }
-            try{
-               if(conn!=null)
-                conn.close();
-            }catch(SQLException se){
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException se) {
                 re = se.toString();
             }
         }
