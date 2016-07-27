@@ -18,8 +18,8 @@ import javax.microedition.midlet.MIDlet;
  * @author Khoi Nguyen
  */
 public class frmLogin extends Form implements CommandListener{
-    private static TextField txtEmail = new TextField("Email:", null, 100, TextField.EMAILADDR);
-    private static TextField txtPassword = new TextField("Password", null, 100, TextField.PASSWORD);
+    private static TextField txtEmail = new TextField("Email:", "hiennguyen87@vanlanguni.vn", 100, TextField.EMAILADDR);
+    private static TextField txtPassword = new TextField("Password", "234566", 100, TextField.PASSWORD);
     private static Command cmdExit = new Command("Exit", Command.EXIT, 1);
     private static Command cmdLogin = new Command("Login", Command.OK, 1);
     private static Command cmdRegister = new Command("Register", Command.OK, 1);

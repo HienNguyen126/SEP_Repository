@@ -12,41 +12,20 @@ import javax.microedition.io.HttpConnection;
 
 /**
  *
- * @author bthac
+ * @author Hien
  */
-public class busRecord {
+public class busReport {
 
-    public String ListRecord(String uid, String dtfrom, String dtto) {
+    public String Report(String uid, String dtfrom, String dtto) {
         String re = "";
-        String url = "http://localhost:8080/Proxy/Record?userid=" + uid + "&datefrom=" + dtfrom + "&dateto=" + dtto;
+        String url = "http://localhost:8080/Proxy/Report?userid=" + uid + "&datefrom=" + dtfrom + "&dateto=" + dtto;
         re = Connect(url);
         return re;
     }
 
-    public String AddRecord(String tid, String date, String starttime, String endtime, String des) {
+    public String DetailReport(String uid, String dtfrom, String dtto) {
         String re = "";
-        String url = "http://localhost:8080/Proxy/AddRecord?tagid=" + tid + "&date=" + date + "&start=" + starttime + "&end=" + endtime + "&description=" + des;
-        re = Connect(url);
-        return re;
-    }
-
-    public String EditRecord(String rid, String tid, String date, String st, String end, String des) {
-        String re = "";
-        String url = "http://localhost:8080/Proxy/EditRecord?recordid=" + rid + "&tagid=" + tid + "&date=" + date + "&start=" + st + "&end=" + end + "&description=" + des;
-        re = Connect(url);
-        return re;
-    }
-
-    public String DeleteRecord(String rid) {
-        String re = "";
-        String url = "http://localhost:8080/Proxy/DeleteRecord?recordid=" + rid;
-        re = Connect(url);
-        return re;
-    }
-
-    public String ListOne(String rid) {
-        String re = "";
-        String url = "http://localhost:8080/Proxy/OneRecord?recordid=" + rid;
+        String url = "http://localhost:8080/Proxy/DetailReport?userid=" + uid + "&datefrom=" + dtfrom + "&dateto=" + dtto;
         re = Connect(url);
         return re;
     }

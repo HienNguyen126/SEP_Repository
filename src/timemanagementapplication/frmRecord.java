@@ -95,11 +95,11 @@ public class frmRecord extends Form implements CommandListener, ItemStateListene
             }
             //append(hour + ":"+minute);
             String time = hour + ":" + minute;
-            radioButtons.append("" + name + "       " + time + "\n" + desc, null);
+            radioButtons.append("" + name + "\t\n" + time + "\n" + desc, null);
         }
     }
 
-    public String ParseDate(DateField d) {
+    public static String ParseDate(DateField d) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(d.getDate());
         String date = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.DAY_OF_MONTH);
@@ -181,13 +181,16 @@ public class frmRecord extends Form implements CommandListener, ItemStateListene
             display.setCurrent(ar);
         } else if (c == cmdEditRecord) {
             int index = radioButtons.getSelectedIndex();
-            String tagid = dalist[index][0];
-            Alert altest = new Alert(tagid);
-            display.setCurrent(altest, this);
+            String rid = dalist[index][0];
+            String tagid = dalist[index][1];
+            frmEditRecord er = new frmEditRecord(display, uid, rid, dtfRecordDate, tagid);
+            display.setCurrent(er);
 //            frmEditRecord er = new frmEditRecord(display, uid);
 //            display.setCurrent(er);
         } else if (c == cmdDeleteRecord) {
-            frmDeleteRecord dr = new frmDeleteRecord(display, uid);
+            int index = radioButtons.getSelectedIndex();
+            String rid = dalist[index][0];
+            frmDeleteRecord dr = new frmDeleteRecord(display, uid, rid);
             display.setCurrent(dr);
         } else {
             frmMain wc = new frmMain(display, uid);

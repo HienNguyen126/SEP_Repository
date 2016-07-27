@@ -17,7 +17,7 @@ public class busUser {
     
     public String Login(String Email, String Password){
         String re = "";
-        String url = "http://192.168.124.1:8080/Proxy/Login?email="+ Email +"&password="+ Password ;
+        String url = "http://localhost:8080/Proxy/Login?email="+ Email +"&password="+ Password ;
         re = Connect(url);
         return re;
     }
