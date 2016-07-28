@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package timemanagementapplication;
+package gui.record;
 
 import bus.busRecord;
 import javax.microedition.lcdui.*;
@@ -39,8 +39,8 @@ public class frmDeleteRecord extends Form implements CommandListener {
                 frmRecord rec = new frmRecord(display, uid);
                 display.setCurrent(rec);
             } else {
-                Alert addTag = new Alert("Delete Record Fail!", re, null, AlertType.WARNING);
-                display.setCurrent(addTag, this);
+                Alert deleteRecord = new Alert("Delete Record Fail!", re, null, AlertType.WARNING);
+                display.setCurrent(deleteRecord, this);
             }
         } else if (c == cmdCancel) {
             frmRecord record = new frmRecord(display, uid);

@@ -9,61 +9,64 @@ import java.io.IOException;
 import java.io.InputStream;
 import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
+
 /**
  *
  * @author Khoi Nguyen
  */
 public class busUser {
-    
-    public String Login(String Email, String Password){
+
+    public String Login(String Email, String Password) {
         String re = "";
-        String url = "http://localhost:8080/Proxy/Login?email="+ Email +"&password="+ Password ;
+        String url = "http://localhost:8080/Proxy/Login?email=" + Email + "&password=" + Password;
         re = Connect(url);
         return re;
     }
-    
-    public String Register(String Email, String Password){
+
+    public String Register(String Email, String Password) {
         String re = "";
-        String url = "http://192.168.124.1:8080/Proxy/Register?email="+ Email +"&password="+ Password ;
+        String url = "http://192.168.124.1:8080/Proxy/Register?email=" + Email + "&password=" + Password;
         re = Connect(url);
         return re;
     }
-    
-    public String SendEmail(String Email, String Password){
+
+    public String SendEmail(String Email, String Password) {
         String re = "";
-        String url = "http://192.168.124.1:8080/Proxy/SendEmail?email="+ Email +"&password="+ Password ;
+        String url = "http://192.168.124.1:8080/Proxy/SendEmail?email=" + Email + "&password=" + Password;
         re = Connect(url);
         return re;
     }
-    
-     public String Connect(String URL){
-        String re ="";
-            long len = 0;
-            int ch = 0;
-            String s = "";
-            try {
-                // open connection
-                HttpConnection conn=(HttpConnection)Connector.open(URL);       
-                StringBuffer sb = new StringBuffer();
-                // get source
-                InputStream in=conn.openInputStream();
-                len = conn.getLength();
-                    if (len != -1) {
-                      for (int i = 0; i < len; i++)
-                        if ((ch = in.read()) != -1)
-                          sb.append((char) ch);
-                    } else {
-                      while ((ch = in.read()) != -1) {
-                        len = in.available(); 
+
+    public String Connect(String URL) {
+        String re = "";
+        long len = 0;
+        int ch = 0;
+        String s = "";
+        try {
+            // open connection
+            HttpConnection conn = (HttpConnection) Connector.open(URL);
+            StringBuffer sb = new StringBuffer();
+            // get source
+            InputStream in = conn.openInputStream();
+            len = conn.getLength();
+            if (len != -1) {
+                for (int i = 0; i < len; i++) {
+                    if ((ch = in.read()) != -1) {
                         sb.append((char) ch);
                     }
-                    }
-                    s = sb.toString();
-                re = s;
-                } catch (IOException ex) {
-                    re = ex.toString();
                 }
-            return re;
+            } else {
+                while ((ch = in.read()) != -1) {
+                    len = in.available();
+                    sb.append((char) ch);
+                }
+            }
+            s = sb.toString();
+            re = s;
+        } catch (IOException ex) {
+            re = ex.toString();
+        }
+        return re;
     }
-    
+
 }

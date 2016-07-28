@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package timemanagementapplication;
+package gui.record;
 
 import bus.busTag;
 import bus.busRecord;
+import gui.tag.frmTag;
 import java.util.Calendar;
 import java.util.Date;
 import javax.microedition.lcdui.*;
@@ -18,7 +19,7 @@ import javax.microedition.lcdui.*;
 public class frmAddRecord extends Form implements CommandListener {
 
     ChoiceGroup radioButtons = new ChoiceGroup("Tag", ChoiceGroup.POPUP);
-    TextField txtDescription = new TextField("Description", "", 200, TextField.ANY);
+    TextField txtDescription = new TextField("Description", "", 50, TextField.ANY);
     DateField dtfDate = new DateField("Date", DateField.DATE);
     DateField dtfStart = new DateField("Start", DateField.TIME);
     DateField dtfEnd = new DateField("End", DateField.TIME);
@@ -92,6 +93,9 @@ public class frmAddRecord extends Form implements CommandListener {
             String redecs = frmTag.Decode(txtDescription.getString());
             //
             if (summinst < summinend) {
+                if (redecs.equals("")) {
+                    redecs = "...";
+                }
                 String sAdd = br.AddRecord(tagid, sDate, sStart, sEnd, redecs);
                 if (sAdd.startsWith("Ok")) {
                     frmRecord re = new frmRecord(display, uid);
@@ -101,8 +105,9 @@ public class frmAddRecord extends Form implements CommandListener {
                     display.setCurrent(addRecord, this);
                 }
             } else {
-                Alert checkTime = new Alert("Time check", "start time not sufficient", null, AlertType.WARNING);
-                display.setCurrent(checkTime,this);}
+                Alert checkTime = new Alert("Time check", "Start time not sufficient", null, AlertType.WARNING);
+                display.setCurrent(checkTime, this);
+            }
 
         } else if (c == cmdCancel) {
             frmRecord record = new frmRecord(display, uid);

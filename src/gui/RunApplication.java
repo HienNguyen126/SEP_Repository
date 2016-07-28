@@ -3,20 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package timemanagementapplication;
+package gui;
 
 import javax.microedition.lcdui.*;
 import javax.microedition.midlet.MIDlet;
-
 
 /**
  * @author Khoi Nguyen
  */
 public class RunApplication extends MIDlet {
 
-
     private Display display;
-    public RunApplication(){
+
+    public RunApplication() {
         display = Display.getDisplay(this);
     }
 
@@ -26,10 +25,10 @@ public class RunApplication extends MIDlet {
         display.setCurrent(Login);
 
     }
-    
+
     public void pauseApp() {
     }
-    
+
     public void destroyApp(boolean unconditional) {
     }
 }

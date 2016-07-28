@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package timemanagementapplication;
+package gui.record;
 
 import bus.busRecord;
 import bus.busTag;
+import gui.tag.frmTag;
 import java.util.Calendar;
 import java.util.Date;
 import javax.microedition.lcdui.*;
@@ -18,7 +19,7 @@ import javax.microedition.lcdui.*;
 public class frmEditRecord extends Form implements CommandListener {
 
     ChoiceGroup radioButtons = new ChoiceGroup(null, Choice.POPUP);
-    TextField txtDescription = new TextField("Description", "", 200, TextField.ANY);
+    TextField txtDescription = new TextField("Description", "", 50, TextField.ANY);
     DateField dtfDate = new DateField("Date", DateField.DATE);
     DateField dtfStart = new DateField("Start", DateField.TIME);
     DateField dtfEnd = new DateField("End", DateField.TIME);
@@ -51,7 +52,7 @@ public class frmEditRecord extends Form implements CommandListener {
             String name = frmRecord.Encode(dalist[i][1]);
             radioButtons.append("" + name, null);
             if (dalist[i][1].equals(tagid)) {
-                 radioButtons.setSelectedIndex(i, true);
+                radioButtons.setSelectedIndex(i, true);
             }
         }
 
@@ -121,17 +122,21 @@ public class frmEditRecord extends Form implements CommandListener {
             String redecs = frmTag.Decode(txtDescription.getString());
             //
             if (summinst < summinend) {
+                if (redecs.equals("")) {
+                    redecs = "...";
+                }
                 String sAdd = br.EditRecord(rid, tagid, sDate, sStart, sEnd, redecs);
                 if (sAdd.startsWith("Ok")) {
                     frmRecord re = new frmRecord(display, uid);
                     display.setCurrent(re);
                 } else {
-                    Alert addRecord = new Alert("Edit Record Fail!", sAdd, null, AlertType.WARNING);
-                    display.setCurrent(addRecord, this);
+                    Alert editRecord = new Alert("Edit Record Fail!", sAdd, null, AlertType.WARNING);
+                    display.setCurrent(editRecord, this);
                 }
             } else {
-                Alert checkTime = new Alert("Time check", "start time not sufficient", null, AlertType.WARNING);
-                display.setCurrent(checkTime,this);}
+                Alert checkTime = new Alert("Time check", "Start time not sufficient", null, AlertType.WARNING);
+                display.setCurrent(checkTime, this);
+            }
         } else if (c == cmdCancel) {
             frmRecord re = new frmRecord(display, uid);
             display.setCurrent(re);

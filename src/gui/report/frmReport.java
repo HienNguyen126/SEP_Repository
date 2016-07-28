@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package timemanagementapplication;
+package gui.report;
 
 import bus.busReport;
+import gui.frmMain;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
@@ -73,28 +74,11 @@ public class frmReport extends Form implements CommandListener {
 
     public void commandAction(Command c, Displayable d) {
         if (c == cmdDetail) {
-            frmDetail dt = new frmDetail(display, uid, cal2 , cal1);
+            frmDetail dt = new frmDetail(display, uid, cal2, cal1);
             display.setCurrent(dt);
         } else if (c == cmdCancel) {
             frmMain ma = new frmMain(display, uid);
             display.setCurrent(ma);
-        }
-    }
-
-    class GaugeUpdater implements Runnable {
-
-        public void run() {
-            isSafeToExit = false;
-            try {
-                while (gauge.getValue() < gauge.getMaxValue()) {
-                    Thread.sleep(1000);
-                    gauge.setValue(gauge.getValue() + 1);
-                }
-                isSafeToExit = true;
-                gauge.setLabel("Process Completed.");
-            } catch (InterruptedException Error) {
-                throw new RuntimeException(Error.getMessage());
-            }
         }
     }
 

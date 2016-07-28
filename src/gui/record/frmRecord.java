@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package timemanagementapplication;
+package gui.record;
 
 import bus.busRecord;
+import gui.frmMain;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
@@ -181,17 +182,25 @@ public class frmRecord extends Form implements CommandListener, ItemStateListene
             display.setCurrent(ar);
         } else if (c == cmdEditRecord) {
             int index = radioButtons.getSelectedIndex();
-            String rid = dalist[index][0];
-            String tagid = dalist[index][1];
-            frmEditRecord er = new frmEditRecord(display, uid, rid, dtfRecordDate, tagid);
-            display.setCurrent(er);
-//            frmEditRecord er = new frmEditRecord(display, uid);
-//            display.setCurrent(er);
+            if (index == -1) {
+                Alert Record = new Alert("Error", "Please select item!", null, AlertType.WARNING);
+                display.setCurrent(Record, this);
+            } else {
+                String rid = dalist[index][0];
+                String tagid = dalist[index][1];
+                frmEditRecord er = new frmEditRecord(display, uid, rid, dtfRecordDate, tagid);
+                display.setCurrent(er);
+            }
         } else if (c == cmdDeleteRecord) {
             int index = radioButtons.getSelectedIndex();
-            String rid = dalist[index][0];
-            frmDeleteRecord dr = new frmDeleteRecord(display, uid, rid);
-            display.setCurrent(dr);
+            if (index == -1) {
+                Alert Record = new Alert("Error", "Please select item!", null, AlertType.WARNING);
+                display.setCurrent(Record, this);
+            } else {
+                String rid = dalist[index][0];
+                frmDeleteRecord dr = new frmDeleteRecord(display, uid, rid);
+                display.setCurrent(dr);
+            }
         } else {
             frmMain wc = new frmMain(display, uid);
             display.setCurrent(wc);

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package timemanagementapplication;
+package gui.report;
 
 import bus.busReport;
 import java.util.Date;
@@ -72,7 +72,7 @@ public class frmDetail extends Form implements CommandListener {
             }
             if (chk) {
                 date = "" + cal2.get(Calendar.DAY_OF_MONTH) + "-" + (cal2.get(Calendar.MONTH) + 1) + "-" + cal2.get(Calendar.YEAR);
-                append(date+"\n");
+                append(date + "\n");
                 append("+++\n");
             }
             cal2.setTime(new Date(cal2.getTime().getTime() + 86400000));
