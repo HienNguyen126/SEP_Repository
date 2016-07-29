@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/SEP_TMS_Repository/branches/TimeApplication/src/timemanagementapplication/frmEditRecord.java</file>
-            <file>file:/E:/SEP_TMS_Repository/branches/TimeApplication/src/timemanagementapplication/frmRecord.java</file>
-            <file>file:/E:/SEP_TMS_Repository/branches/TimeApplication/src/bus/busUser.java</file>
-            <file>file:/E:/SEP_TMS_Repository/branches/TimeApplication/src/timemanagementapplication/frmLogin.java</file>
+            <file>file:/C:/Users/Hien/Desktop/TeamONE-SEP/branches/TimeApplication/src/gui/record/frmRecord.java</file>
+            <file>file:/C:/Users/Hien/Desktop/TeamONE-SEP/branches/TimeApplication/src/gui/record/frmEditRecord.java</file>
+            <file>file:/C:/Users/Hien/Desktop/TeamONE-SEP/branches/TimeApplication/src/bus/busUser.java</file>
+            <file>file:/C:/Users/Hien/Desktop/TeamONE-SEP/branches/TimeApplication/src/gui/frmLogin.java</file>
+            <file>file:/C:/Users/Hien/Desktop/TeamONE-SEP/branches/TimeApplication/src/gui/record/frmAddRecord.java</file>
         </group>
     </open-files>
 </project-private>

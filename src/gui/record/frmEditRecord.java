@@ -134,7 +134,7 @@ public class frmEditRecord extends Form implements CommandListener {
                     display.setCurrent(editRecord, this);
                 }
             } else {
-                Alert checkTime = new Alert("Time check", "Start time not sufficient", null, AlertType.WARNING);
+                Alert checkTime = new Alert("Edit Record Fail!", "Start/end time not sufficient", null, AlertType.WARNING);
                 display.setCurrent(checkTime, this);
             }
         } else if (c == cmdCancel) {

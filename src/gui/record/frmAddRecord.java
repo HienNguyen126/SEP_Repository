@@ -105,7 +105,7 @@ public class frmAddRecord extends Form implements CommandListener {
                     display.setCurrent(addRecord, this);
                 }
             } else {
-                Alert checkTime = new Alert("Time check", "Start time not sufficient", null, AlertType.WARNING);
+                Alert checkTime = new Alert("Add Record Fail", "Start/end time is not sufficient", null, AlertType.WARNING);
                 display.setCurrent(checkTime, this);
             }
 

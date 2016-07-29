@@ -19,13 +19,12 @@ import javax.microedition.midlet.MIDlet;
  */
 public class frmLogin extends Form implements CommandListener {
 
-    private static TextField txtEmail = new TextField("Email:", "hiennguyen87@vanlanguni.vn", 100, TextField.EMAILADDR);
-    private static TextField txtPassword = new TextField("Password", "234566", 100, TextField.PASSWORD);
+    private static TextField txtEmail = new TextField("Email:", "hiennguyen87@vanlanguni.vn", 50, TextField.EMAILADDR);
+    private static TextField txtPassword = new TextField("Password", "234566", 50, TextField.PASSWORD);
     private static Command cmdExit = new Command("Exit", Command.EXIT, 1);
     private static Command cmdLogin = new Command("Login", Command.OK, 1);
     private static Command cmdRegister = new Command("Register", Command.OK, 1);
     private Display display;
-    private Image Image;
     public String uid;
 
     public frmLogin(Display display) {
@@ -33,7 +32,6 @@ public class frmLogin extends Form implements CommandListener {
         super("Login");
         append(txtEmail);
         append(txtPassword);
-        //addCommand(cmdExit);
         addCommand(cmdLogin);
         addCommand(cmdRegister);
         setCommandListener(this);
@@ -59,7 +57,7 @@ public class frmLogin extends Form implements CommandListener {
                 frmMain main = new frmMain(display, uid);
                 display.setCurrent(main);
             } else {
-                Alert altLogin = new Alert("Login Fail!", result, null, AlertType.WARNING);
+                Alert altLogin = new Alert("Login Failed!", result, null, AlertType.WARNING);
                 display.setCurrent(altLogin, this);
             }
         } else if (c == cmdRegister) {
@@ -75,18 +73,18 @@ public class frmLogin extends Form implements CommandListener {
                 if (result.startsWith("Ok")) {
                     String result2 = bususer.SendEmail(Email, Password);
                     if (result2.startsWith("Ok")) {
-                        Alert altLogin = new Alert("Register Success!", "Please check your email", null, AlertType.WARNING);
+                        Alert altLogin = new Alert("Registration Success!", "Please check your email", null, AlertType.WARNING);
                         display.setCurrent(altLogin, this);
                     } else {
-                        Alert altLogin = new Alert("Register Fail!", result2, null, AlertType.WARNING);
+                        Alert altLogin = new Alert("Registration Failed!", result2, null, AlertType.WARNING);
                         display.setCurrent(altLogin, this);
                     }
                 } else {
-                    Alert altLogin = new Alert("Register Fail!", result, null, AlertType.WARNING);
+                    Alert altLogin = new Alert("Registration Failed!", result, null, AlertType.WARNING);
                     display.setCurrent(altLogin, this);
                 }
             } else {
-                Alert altLogin = new Alert("Register Fail!", "Wrong format email!", null, AlertType.WARNING);
+                Alert altLogin = new Alert("Registration Failed!", "Wrong format email!", null, AlertType.WARNING);
                 display.setCurrent(altLogin, this);
             }
         }
