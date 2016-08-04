@@ -22,7 +22,7 @@ public class frmAddRecord extends Form implements CommandListener {
     TextField txtDescription = new TextField("Description", "", 50, TextField.ANY);
     DateField dtfDate = new DateField("Date", DateField.DATE);
     DateField dtfStart = new DateField("Start", DateField.TIME);
-    DateField dtfEnd = new DateField("End", DateField.TIME);
+    DateField dtfEnd = new DateField("End ", DateField.TIME);
     Command cmdCancel = new Command("Cancel", Command.CANCEL, 1);
     Command cmdOk = new Command("Ok", Command.OK, 1);
     public String uid;
